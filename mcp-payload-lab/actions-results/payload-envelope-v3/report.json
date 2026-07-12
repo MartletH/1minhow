@@ -1,0 +1,89 @@
+{
+  "actual_blob_create": [
+    {
+      "base64_chars": 16777216,
+      "decoded_bytes": 12582912,
+      "expected_git_blob_sha": "0be7b35870ca97c3adb4dd1bb2c640f965c8777f",
+      "http_status": 201,
+      "request_json_bytes": 16777250,
+      "response_excerpt": "{\"sha\":\"0be7b35870ca97c3adb4dd1bb2c640f965c8777f\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/0be7b35870ca97c3adb4dd1bb2c640f965c8777f\"}",
+      "returned_git_blob_sha": "0be7b35870ca97c3adb4dd1bb2c640f965c8777f",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 33554432,
+      "decoded_bytes": 25165824,
+      "expected_git_blob_sha": "9c09d84661af7f87dad1c951aef3cb5c155dba11",
+      "http_status": 201,
+      "request_json_bytes": 33554466,
+      "response_excerpt": "{\"sha\":\"9c09d84661af7f87dad1c951aef3cb5c155dba11\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/9c09d84661af7f87dad1c951aef3cb5c155dba11\"}",
+      "returned_git_blob_sha": "9c09d84661af7f87dad1c951aef3cb5c155dba11",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 67108864,
+      "decoded_bytes": 50331648,
+      "expected_git_blob_sha": "f2e604209c3e8435e0960f2ec76fbd7cca8f45fe",
+      "http_status": 422,
+      "request_json_bytes": 67108898,
+      "response_excerpt": "{\"message\":\"Sorry, your input was too large to process. Consider creating the blob in a local clone of the repository and then pushing it to GitHub.\",\"documentation_url\":\"https://docs.github.com/rest/git/blobs#create-a-blob\",\"status\":\"422\"}",
+      "returned_git_blob_sha": null,
+      "sha_matches": false
+    }
+  ],
+  "known_invalid_v2_result": {
+    "content_chars": 16777216,
+    "note": "GitHub accepted the invalid encoding enum and created a UTF-8 blob. The v2 transport row is invalid as a no-object probe.",
+    "orphan_blob_sha": "e752f22e4e0c1bc4b980cc6e4e0e5c7a7fcc979e"
+  },
+  "request_probe": [
+    {
+      "http_status": 422,
+      "message_chars": 100663296,
+      "parsed_and_rejected_without_object": true,
+      "request_json_bytes": 100663373,
+      "response_excerpt": "{\"message\":\"Tree SHA does not exist\",\"documentation_url\":\"https://docs.github.com/rest/git/commits#create-a-commit\",\"status\":\"422\"}"
+    },
+    {
+      "http_status": 422,
+      "message_chars": 134217728,
+      "parsed_and_rejected_without_object": true,
+      "request_json_bytes": 134217805,
+      "response_excerpt": "{\"message\":\"Tree SHA does not exist\",\"documentation_url\":\"https://docs.github.com/rest/git/commits#create-a-commit\",\"status\":\"422\"}"
+    },
+    {
+      "http_status": 422,
+      "message_chars": 167772160,
+      "parsed_and_rejected_without_object": true,
+      "request_json_bytes": 167772237,
+      "response_excerpt": "{\"message\":\"Tree SHA does not exist\",\"documentation_url\":\"https://docs.github.com/rest/git/commits#create-a-commit\",\"status\":\"422\"}"
+    },
+    {
+      "http_status": 422,
+      "message_chars": 201326592,
+      "parsed_and_rejected_without_object": true,
+      "request_json_bytes": 201326669,
+      "response_excerpt": "{\"message\":\"Tree SHA does not exist\",\"documentation_url\":\"https://docs.github.com/rest/git/commits#create-a-commit\",\"status\":\"422\"}"
+    },
+    {
+      "http_status": 422,
+      "message_chars": 234881024,
+      "parsed_and_rejected_without_object": true,
+      "request_json_bytes": 234881101,
+      "response_excerpt": "{\"message\":\"Tree SHA does not exist\",\"documentation_url\":\"https://docs.github.com/rest/git/commits#create-a-commit\",\"status\":\"422\"}"
+    },
+    {
+      "http_status": 422,
+      "message_chars": 268435456,
+      "parsed_and_rejected_without_object": true,
+      "request_json_bytes": 268435533,
+      "response_excerpt": "{\"message\":\"Tree SHA does not exist\",\"documentation_url\":\"https://docs.github.com/rest/git/commits#create-a-commit\",\"status\":\"422\"}"
+    }
+  ],
+  "scope": {
+    "actual_blob_create": "valid base64 passed directly to GitHub API from Actions",
+    "openai_outer_layer": "not exercised by this Actions control",
+    "request_probe": "large commit message with deliberately nonexistent tree SHA; expected 422 and no Git object"
+  },
+  "test": "github-payload-envelope-v3"
+}

@@ -1,0 +1,39 @@
+{
+  "test": "same-image-chunk-transfer-and-actions-reassembly",
+  "date": "2026-07-12",
+  "source": {
+    "width": 525,
+    "height": 394,
+    "bytes": 17693,
+    "base64_chars": 23592,
+    "sha256": "affcd721922a68130806759b985ddd38c394b2f38b2a96bb0d46c9d9ca15b699",
+    "git_blob_sha": "a7d30f32076b4db3c4d56f52c287a6a98c7f3711"
+  },
+  "eight_k": {
+    "chunk_base64_sizes": [8000, 8000, 7592],
+    "decoded_chunk_bytes": [6000, 6000, 5693],
+    "chunk_blob_shas": [
+      "78509ecdb1e48e864c11d0b30d1af4ee8b4d14f1",
+      "11e4811ed5605d0141c9af50b77c39c51e4bf391",
+      "0274dc4743654eb6764039ddffaf5f94b09a4c02"
+    ],
+    "result_path": "actions-results/8k-x3/result.jpg",
+    "result_git_blob_sha": "a7d30f32076b4db3c4d56f52c287a6a98c7f3711"
+  },
+  "six_k": {
+    "chunk_base64_sizes": [6000, 6000, 6000, 5592],
+    "decoded_chunk_bytes": [4500, 4500, 4500, 4193],
+    "chunk_blob_shas": [
+      "0db00735b22604d4232e439c47d17868afea2ea9",
+      "d4a31e0122e1f83bc6a7d650250fe7900686666f",
+      "9fd0833c0c7a5008cb33948142004b23d8fd2203",
+      "74896870cd8ee1c9349d0e9b8f469541990c5d0f"
+    ],
+    "result_path": "actions-results/6k-x4/result.jpg",
+    "result_git_blob_sha": "a7d30f32076b4db3c4d56f52c287a6a98c7f3711"
+  },
+  "verification": {
+    "both_results_byte_identical": true,
+    "both_results_sha256": "affcd721922a68130806759b985ddd38c394b2f38b2a96bb0d46c9d9ca15b699"
+  }
+}

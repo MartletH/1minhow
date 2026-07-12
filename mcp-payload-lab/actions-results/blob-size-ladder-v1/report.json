@@ -1,0 +1,222 @@
+{
+  "test": "github-api-create-blob-base64-size-ladder",
+  "date": "2026-07-12",
+  "repository": "MartletH/1minhow",
+  "trigger_sha": "f594395def3aaee57cbe7a9f6bc9d7a024cfb31e",
+  "generator": {
+    "type": "python-random-seeded-bytes",
+    "seed": 20260712,
+    "high_entropy_intent": true
+  },
+  "encoding": "base64",
+  "sizes": [
+    12000,
+    16000,
+    24000,
+    32000,
+    48000,
+    60000
+  ],
+  "repeats_per_size": 3,
+  "scope_note": "This tests GitHub API and GITHUB_TOKEN from Actions. It does not pass the payload through the ChatGPT/OpenAI tool-call outer safety layer.",
+  "results": [
+    {
+      "base64_chars": 12000,
+      "decoded_bytes": 9000,
+      "attempt": 1,
+      "content_sha256": "805686b8f209237d6531691452ed796ab727104c5c9d2a657846b82f09f67b4c",
+      "expected_git_blob_sha": "6e4e4b55ce5c2b942c7cd0b7423233d87df025b6",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "6e4e4b55ce5c2b942c7cd0b7423233d87df025b6",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 12000,
+      "decoded_bytes": 9000,
+      "attempt": 2,
+      "content_sha256": "805686b8f209237d6531691452ed796ab727104c5c9d2a657846b82f09f67b4c",
+      "expected_git_blob_sha": "6e4e4b55ce5c2b942c7cd0b7423233d87df025b6",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "6e4e4b55ce5c2b942c7cd0b7423233d87df025b6",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 12000,
+      "decoded_bytes": 9000,
+      "attempt": 3,
+      "content_sha256": "805686b8f209237d6531691452ed796ab727104c5c9d2a657846b82f09f67b4c",
+      "expected_git_blob_sha": "6e4e4b55ce5c2b942c7cd0b7423233d87df025b6",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "6e4e4b55ce5c2b942c7cd0b7423233d87df025b6",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 16000,
+      "decoded_bytes": 12000,
+      "attempt": 1,
+      "content_sha256": "020452e508f6a96f07eda40ad4e8cc9451b5b2033ec29702714df1a5da09c2b5",
+      "expected_git_blob_sha": "3ddc773f9a02f2db4af1a0afceba8efc7b5284ae",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "3ddc773f9a02f2db4af1a0afceba8efc7b5284ae",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 16000,
+      "decoded_bytes": 12000,
+      "attempt": 2,
+      "content_sha256": "020452e508f6a96f07eda40ad4e8cc9451b5b2033ec29702714df1a5da09c2b5",
+      "expected_git_blob_sha": "3ddc773f9a02f2db4af1a0afceba8efc7b5284ae",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "3ddc773f9a02f2db4af1a0afceba8efc7b5284ae",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 16000,
+      "decoded_bytes": 12000,
+      "attempt": 3,
+      "content_sha256": "020452e508f6a96f07eda40ad4e8cc9451b5b2033ec29702714df1a5da09c2b5",
+      "expected_git_blob_sha": "3ddc773f9a02f2db4af1a0afceba8efc7b5284ae",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "3ddc773f9a02f2db4af1a0afceba8efc7b5284ae",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 24000,
+      "decoded_bytes": 18000,
+      "attempt": 1,
+      "content_sha256": "a9ef6ab2819c3829ad515e1772ffac7bebb4313fa5f862c0b08ebc2e6550bd92",
+      "expected_git_blob_sha": "4022402dd80246b95a2c64e9d8f27baab2f486ab",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "4022402dd80246b95a2c64e9d8f27baab2f486ab",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 24000,
+      "decoded_bytes": 18000,
+      "attempt": 2,
+      "content_sha256": "a9ef6ab2819c3829ad515e1772ffac7bebb4313fa5f862c0b08ebc2e6550bd92",
+      "expected_git_blob_sha": "4022402dd80246b95a2c64e9d8f27baab2f486ab",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "4022402dd80246b95a2c64e9d8f27baab2f486ab",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 24000,
+      "decoded_bytes": 18000,
+      "attempt": 3,
+      "content_sha256": "a9ef6ab2819c3829ad515e1772ffac7bebb4313fa5f862c0b08ebc2e6550bd92",
+      "expected_git_blob_sha": "4022402dd80246b95a2c64e9d8f27baab2f486ab",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "4022402dd80246b95a2c64e9d8f27baab2f486ab",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 32000,
+      "decoded_bytes": 24000,
+      "attempt": 1,
+      "content_sha256": "ae6200f703bd43593c2a7b7b6a94f02872f23a7c577db573f4bb271bf0b6490d",
+      "expected_git_blob_sha": "ecba1012f44313ac1cce236408373022386643b3",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "ecba1012f44313ac1cce236408373022386643b3",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 32000,
+      "decoded_bytes": 24000,
+      "attempt": 2,
+      "content_sha256": "ae6200f703bd43593c2a7b7b6a94f02872f23a7c577db573f4bb271bf0b6490d",
+      "expected_git_blob_sha": "ecba1012f44313ac1cce236408373022386643b3",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "ecba1012f44313ac1cce236408373022386643b3",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 32000,
+      "decoded_bytes": 24000,
+      "attempt": 3,
+      "content_sha256": "ae6200f703bd43593c2a7b7b6a94f02872f23a7c577db573f4bb271bf0b6490d",
+      "expected_git_blob_sha": "ecba1012f44313ac1cce236408373022386643b3",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "ecba1012f44313ac1cce236408373022386643b3",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 48000,
+      "decoded_bytes": 36000,
+      "attempt": 1,
+      "content_sha256": "336339217bc3246ceefd76dc5e5a7a8cbcef2733f5cdcd4a1c09d10d42b4f10b",
+      "expected_git_blob_sha": "cffe7a21b3753d38ae944cf634b8894c0fd002e0",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "cffe7a21b3753d38ae944cf634b8894c0fd002e0",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 48000,
+      "decoded_bytes": 36000,
+      "attempt": 2,
+      "content_sha256": "336339217bc3246ceefd76dc5e5a7a8cbcef2733f5cdcd4a1c09d10d42b4f10b",
+      "expected_git_blob_sha": "cffe7a21b3753d38ae944cf634b8894c0fd002e0",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "cffe7a21b3753d38ae944cf634b8894c0fd002e0",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 48000,
+      "decoded_bytes": 36000,
+      "attempt": 3,
+      "content_sha256": "336339217bc3246ceefd76dc5e5a7a8cbcef2733f5cdcd4a1c09d10d42b4f10b",
+      "expected_git_blob_sha": "cffe7a21b3753d38ae944cf634b8894c0fd002e0",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "cffe7a21b3753d38ae944cf634b8894c0fd002e0",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 60000,
+      "decoded_bytes": 45000,
+      "attempt": 1,
+      "content_sha256": "a45c58fe1bb8e036d615d216a16642727556e72f3d59e7c4dcc3f90a2ff073b8",
+      "expected_git_blob_sha": "6e6ae314006dd8a3178c0f9929eb7aaf6e66f6cf",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "6e6ae314006dd8a3178c0f9929eb7aaf6e66f6cf",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 60000,
+      "decoded_bytes": 45000,
+      "attempt": 2,
+      "content_sha256": "a45c58fe1bb8e036d615d216a16642727556e72f3d59e7c4dcc3f90a2ff073b8",
+      "expected_git_blob_sha": "6e6ae314006dd8a3178c0f9929eb7aaf6e66f6cf",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "6e6ae314006dd8a3178c0f9929eb7aaf6e66f6cf",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 60000,
+      "decoded_bytes": 45000,
+      "attempt": 3,
+      "content_sha256": "a45c58fe1bb8e036d615d216a16642727556e72f3d59e7c4dcc3f90a2ff073b8",
+      "expected_git_blob_sha": "6e6ae314006dd8a3178c0f9929eb7aaf6e66f6cf",
+      "http_status": 201,
+      "result": "success",
+      "returned_git_blob_sha": "6e6ae314006dd8a3178c0f9929eb7aaf6e66f6cf",
+      "sha_matches": true
+    }
+  ]
+}

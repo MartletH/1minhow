@@ -1,0 +1,99 @@
+{
+  "actual_create": [
+    {
+      "base64_chars": 64000,
+      "decoded_bytes": 48000,
+      "expected_git_blob_sha": "21ed9fa80bfb2b209932aed7a01ceac4c8016379",
+      "http_status": 201,
+      "request_json_bytes": 64034,
+      "response_excerpt": "{\"sha\":\"21ed9fa80bfb2b209932aed7a01ceac4c8016379\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/21ed9fa80bfb2b209932aed7a01ceac4c8016379\"}",
+      "returned_git_blob_sha": "21ed9fa80bfb2b209932aed7a01ceac4c8016379",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 128000,
+      "decoded_bytes": 96000,
+      "expected_git_blob_sha": "832fc03821737635a124bc403b87210fbc6cd5c7",
+      "http_status": 201,
+      "request_json_bytes": 128034,
+      "response_excerpt": "{\"sha\":\"832fc03821737635a124bc403b87210fbc6cd5c7\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/832fc03821737635a124bc403b87210fbc6cd5c7\"}",
+      "returned_git_blob_sha": "832fc03821737635a124bc403b87210fbc6cd5c7",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 256000,
+      "decoded_bytes": 192000,
+      "expected_git_blob_sha": "c3310d813b49381c5c367d9bb2d76953b5bff0d9",
+      "http_status": 201,
+      "request_json_bytes": 256034,
+      "response_excerpt": "{\"sha\":\"c3310d813b49381c5c367d9bb2d76953b5bff0d9\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/c3310d813b49381c5c367d9bb2d76953b5bff0d9\"}",
+      "returned_git_blob_sha": "c3310d813b49381c5c367d9bb2d76953b5bff0d9",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 512000,
+      "decoded_bytes": 384000,
+      "expected_git_blob_sha": "24f1de2898151877385950345879b9599be36d40",
+      "http_status": 201,
+      "request_json_bytes": 512034,
+      "response_excerpt": "{\"sha\":\"24f1de2898151877385950345879b9599be36d40\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/24f1de2898151877385950345879b9599be36d40\"}",
+      "returned_git_blob_sha": "24f1de2898151877385950345879b9599be36d40",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 1048576,
+      "decoded_bytes": 786432,
+      "expected_git_blob_sha": "492db31f82b6ce4f0a7c06278d3c90c6f5079364",
+      "http_status": 201,
+      "request_json_bytes": 1048610,
+      "response_excerpt": "{\"sha\":\"492db31f82b6ce4f0a7c06278d3c90c6f5079364\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/492db31f82b6ce4f0a7c06278d3c90c6f5079364\"}",
+      "returned_git_blob_sha": "492db31f82b6ce4f0a7c06278d3c90c6f5079364",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 2097152,
+      "decoded_bytes": 1572864,
+      "expected_git_blob_sha": "c804c5ef50666794c38aa24886a8f26453bc1c8f",
+      "http_status": 201,
+      "request_json_bytes": 2097186,
+      "response_excerpt": "{\"sha\":\"c804c5ef50666794c38aa24886a8f26453bc1c8f\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/c804c5ef50666794c38aa24886a8f26453bc1c8f\"}",
+      "returned_git_blob_sha": "c804c5ef50666794c38aa24886a8f26453bc1c8f",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 4194304,
+      "decoded_bytes": 3145728,
+      "expected_git_blob_sha": "4b24cc0ed189c294516a5b47c0109fd4a984300a",
+      "http_status": 201,
+      "request_json_bytes": 4194338,
+      "response_excerpt": "{\"sha\":\"4b24cc0ed189c294516a5b47c0109fd4a984300a\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/4b24cc0ed189c294516a5b47c0109fd4a984300a\"}",
+      "returned_git_blob_sha": "4b24cc0ed189c294516a5b47c0109fd4a984300a",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 8388608,
+      "decoded_bytes": 6291456,
+      "expected_git_blob_sha": "a8aeec386e0db3f56c8a922f7b6d0f5ea712b59c",
+      "http_status": 201,
+      "request_json_bytes": 8388642,
+      "response_excerpt": "{\"sha\":\"a8aeec386e0db3f56c8a922f7b6d0f5ea712b59c\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/a8aeec386e0db3f56c8a922f7b6d0f5ea712b59c\"}",
+      "returned_git_blob_sha": "a8aeec386e0db3f56c8a922f7b6d0f5ea712b59c",
+      "sha_matches": true
+    }
+  ],
+  "scope": {
+    "actual_create": "valid base64, creates orphan Git blobs",
+    "openai_outer_layer": "not exercised by this Actions control",
+    "transport_probe": "large JSON body with invalid encoding value; no blob should be created"
+  },
+  "test": "github-api-blob-upper-bound-v2",
+  "transport_probe": [
+    {
+      "body_reached_and_parsed": false,
+      "content_chars": 16777216,
+      "http_status": 201,
+      "request_json_bytes": 16777264,
+      "response_excerpt": "{\"sha\":\"e752f22e4e0c1bc4b980cc6e4e0e5c7a7fcc979e\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/e752f22e4e0c1bc4b980cc6e4e0e5c7a7fcc979e\"}"
+    }
+  ]
+}

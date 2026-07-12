@@ -1,0 +1,56 @@
+{
+  "known_lower_success_base64_chars": 33554432,
+  "known_upper_failure_base64_chars": 67108864,
+  "rows": [
+    {
+      "base64_chars": 50331648,
+      "base64_mib": 48.0,
+      "decoded_bytes": 37748736,
+      "decoded_mib": 36.0,
+      "expected_git_blob_sha": "850c7fdd01582783b6e0cb084778ae69321f588d",
+      "http_status": 201,
+      "request_json_bytes": 50331682,
+      "response_excerpt": "{\"sha\":\"850c7fdd01582783b6e0cb084778ae69321f588d\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/850c7fdd01582783b6e0cb084778ae69321f588d\"}",
+      "returned_git_blob_sha": "850c7fdd01582783b6e0cb084778ae69321f588d",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 52428800,
+      "base64_mib": 50.0,
+      "decoded_bytes": 39321600,
+      "decoded_mib": 37.5,
+      "expected_git_blob_sha": "6a50553c276e44f780bfd53c513ad785a9d2f9d9",
+      "http_status": 201,
+      "request_json_bytes": 52428834,
+      "response_excerpt": "{\"sha\":\"6a50553c276e44f780bfd53c513ad785a9d2f9d9\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/6a50553c276e44f780bfd53c513ad785a9d2f9d9\"}",
+      "returned_git_blob_sha": "6a50553c276e44f780bfd53c513ad785a9d2f9d9",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 54525952,
+      "base64_mib": 52.0,
+      "decoded_bytes": 40894464,
+      "decoded_mib": 39.0,
+      "expected_git_blob_sha": "5ae35f1c1e45628b70584f63a1be1beb5f0b79a1",
+      "http_status": 201,
+      "request_json_bytes": 54525986,
+      "response_excerpt": "{\"sha\":\"5ae35f1c1e45628b70584f63a1be1beb5f0b79a1\",\"url\":\"https://api.github.com/repos/MartletH/1minhow/git/blobs/5ae35f1c1e45628b70584f63a1be1beb5f0b79a1\"}",
+      "returned_git_blob_sha": "5ae35f1c1e45628b70584f63a1be1beb5f0b79a1",
+      "sha_matches": true
+    },
+    {
+      "base64_chars": 56623104,
+      "base64_mib": 54.0,
+      "decoded_bytes": 42467328,
+      "decoded_mib": 40.5,
+      "expected_git_blob_sha": "f130ff1df3fd5f24f7b6d050394afe16d212a7f2",
+      "http_status": 422,
+      "request_json_bytes": 56623138,
+      "response_excerpt": "{\"message\":\"Sorry, your input was too large to process. Consider creating the blob in a local clone of the repository and then pushing it to GitHub.\",\"documentation_url\":\"https://docs.github.com/rest/git/blobs#create-a-blob\",\"status\":\"422\"}",
+      "returned_git_blob_sha": null,
+      "sha_matches": false
+    }
+  ],
+  "scope_note": "Actions-side GitHub API control; does not exercise ChatGPT/OpenAI outer tool-call safety.",
+  "test": "github-create-blob-boundary-v4"
+}

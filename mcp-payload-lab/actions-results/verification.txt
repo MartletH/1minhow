@@ -1,0 +1,11 @@
+source_sha256=affcd721922a68130806759b985ddd38c394b2f38b2a96bb0d46c9d9ca15b699
+expected_bytes=17693
+8k_x3_sha256=affcd721922a68130806759b985ddd38c394b2f38b2a96bb0d46c9d9ca15b699
+8k_x3_bytes=17693
+6k_x4_sha256=affcd721922a68130806759b985ddd38c394b2f38b2a96bb0d46c9d9ca15b699
+6k_x4_bytes=17693
+outputs_byte_identical=true
+source_refs=test8,test6
+trigger_commit=864528daf9de6fd4205ce6d27ff0f6bd88339bfe
+mcp-payload-lab/actions-results/8k-x3/result.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, progressive, precision 8, 525x394, components 3
+mcp-payload-lab/actions-results/6k-x4/result.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, progressive, precision 8, 525x394, components 3
