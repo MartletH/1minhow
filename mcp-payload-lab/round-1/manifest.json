@@ -1,0 +1,24 @@
+{
+  "test": "github-mcp-base64-image-proof",
+  "branch": "mcp-payload-lab",
+  "method": "create_blob(encoding=base64) -> create_tree -> create_commit -> update_ref",
+  "public_proof_image": {
+    "path": "mcp-payload-lab/round-1/github-base64-proof.jpg",
+    "width": 160,
+    "height": 120,
+    "bytes": 5041,
+    "base64_chars": 6724,
+    "sha256": "dc76e71ca5de202fe54d8e185133419fa5f79941ec7b1f3db180b9ee1670885a",
+    "git_blob_sha": "5636a22f3f7e311029e3e6a3a54638a4ef62408d"
+  },
+  "original_round_1": {
+    "width": 525,
+    "height": 394,
+    "bytes": 17693,
+    "base64_chars": 23592,
+    "chunk_sizes": [8000, 8000, 7592],
+    "sha256": "affcd721922a68130806759b985ddd38c394b2f38b2a96bb0d46c9d9ca15b699",
+    "status": "read-back, reconstruction and SHA verification passed"
+  },
+  "note": "The public proof image is a smaller derivative so one conservative 8k-class base64 call can be visibly verified in GitHub. The full-size chunk test remains separately verified."
+}
