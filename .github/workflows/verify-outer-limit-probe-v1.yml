@@ -1,0 +1,110 @@
+name: Verify outer-limit probe v1
+
+on:
+  push:
+    branches:
+      - mcp-outer-tool-limit-lab
+    paths:
+      - mcp-payload-lab/outer-tool-limit/verify-trigger-v1.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: outer-limit-verifier-v1
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: github.repository == 'MartletH/1minhow'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          fetch-depth: 0
+      - name: Verify exact expected blob existence
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SOURCE_BLOB_SHA: 0795b78eab8b359663bef0d0b0638dbe29eeb8cb
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, json, os, urllib.error, urllib.request
+          from pathlib import Path
+
+          trigger = {}
+          for line in Path('mcp-payload-lab/outer-tool-limit/verify-trigger-v1.txt').read_text().splitlines():
+              key, value = line.split('=', 1)
+              trigger[key] = value
+          size = int(trigger['size'])
+          attempt = int(trigger['attempt'])
+
+          repo = os.environ['REPO']
+          token = os.environ['GH_TOKEN']
+          source_sha = os.environ['SOURCE_BLOB_SHA']
+          headers = {
+              'Authorization': f'Bearer {token}',
+              'Accept': 'application/vnd.github+json',
+              'X-GitHub-Api-Version': '2022-11-28',
+          }
+
+          req = urllib.request.Request(
+              f'https://api.github.com/repos/{repo}/git/blobs/{source_sha}',
+              headers=headers,
+          )
+          with urllib.request.urlopen(req) as response:
+              source = json.load(response)
+          raw = base64.b64decode(source['content'])
+          block = base64.b64encode(raw).decode('ascii')
+          assert len(block) == 12000
+
+          q, r = divmod(size, len(block))
+          content = block * q + block[:r]
+          # Unique image-derived variant: replace the final quartet with the
+          # first quartet of the same PNG block. Length remains unchanged.
+          content = content[:-4] + block[:4]
+          assert len(content) == size and size % 4 == 0
+          decoded = base64.b64decode(content, validate=True)
+          expected = hashlib.sha1(
+              f'blob {len(decoded)}\0'.encode() + decoded
+          ).hexdigest()
+
+          exists = True
+          status = 200
+          req = urllib.request.Request(
+              f'https://api.github.com/repos/{repo}/git/blobs/{expected}',
+              headers=headers,
+          )
+          try:
+              with urllib.request.urlopen(req) as response:
+                  response.read(1)
+                  status = response.status
+          except urllib.error.HTTPError as exc:
+              status = exc.code
+              if exc.code == 404:
+                  exists = False
+              else:
+                  raise
+
+          report = {
+              'size': size,
+              'attempt': attempt,
+              'expected_git_blob_sha': expected,
+              'expected_decoded_bytes': len(decoded),
+              'expected_base64_sha256': hashlib.sha256(content.encode()).hexdigest(),
+              'exact_blob_exists': exists,
+              'lookup_http_status': status,
+              'probe_variant': 'repeat-12000-png-block-and-replace-final-quartet',
+          }
+          out = Path(f'mcp-payload-lab/outer-tool-limit/results/verify-{size}-attempt-{attempt}.json')
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(json.dumps(report, indent=2, sort_keys=True) + '\n')
+          PY
+      - name: Commit verification report
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add mcp-payload-lab/outer-tool-limit/results
+          git commit -m "test: record outer-limit probe verification"
+          git push origin HEAD:mcp-outer-tool-limit-lab
