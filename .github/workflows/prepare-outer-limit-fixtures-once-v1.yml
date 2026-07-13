@@ -1,0 +1,102 @@
+name: Prepare outer-limit fixtures once v1
+
+on:
+  push:
+    branches:
+      - mcp-outer-tool-limit-lab
+    paths:
+      - mcp-payload-lab/outer-tool-limit/action-trigger-v1.txt
+
+permissions:
+  contents: write
+
+concurrency:
+  group: outer-limit-fixtures-v1
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.repository == 'MartletH/1minhow' && github.event.head_commit.message == 'test: trigger outer-limit fixture preparation v1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          fetch-depth: 0
+      - name: Generate exact image-derived fixtures and report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SOURCE_BLOB_SHA: 0795b78eab8b359663bef0d0b0638dbe29eeb8cb
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, json, os, urllib.request
+          repo = os.environ['REPO']
+          token = os.environ['GH_TOKEN']
+          source_sha = os.environ['SOURCE_BLOB_SHA']
+
+          def request(url, method='GET', payload=None):
+              data = None if payload is None else json.dumps(payload).encode()
+              req = urllib.request.Request(
+                  url,
+                  data=data,
+                  method=method,
+                  headers={
+                      'Authorization': f'Bearer {token}',
+                      'Accept': 'application/vnd.github+json',
+                      'X-GitHub-Api-Version': '2022-11-28',
+                      'Content-Type': 'application/json',
+                  },
+              )
+              with urllib.request.urlopen(req) as response:
+                  return json.load(response)
+
+          source = request(f'https://api.github.com/repos/{repo}/git/blobs/{source_sha}')
+          raw = base64.b64decode(source['content'])
+          block = base64.b64encode(raw).decode('ascii')
+          assert len(raw) == 9000
+          assert len(block) == 12000
+
+          fixtures = {
+              48000: block * 4,
+              60000: block * 5,
+              61440: block * 5 + block[:1440],
+              64000: block * 5 + block[:4000],
+          }
+          report = {
+              'source_blob_sha': source_sha,
+              'source_base64_chars': len(block),
+              'fixtures': {},
+          }
+          for chars, content in fixtures.items():
+              assert len(content) == chars
+              decoded = base64.b64decode(content, validate=True)
+              expected = hashlib.sha1(
+                  f'blob {len(decoded)}\0'.encode() + decoded
+              ).hexdigest()
+              created = request(
+                  f'https://api.github.com/repos/{repo}/git/blobs',
+                  method='POST',
+                  payload={'content': content, 'encoding': 'base64'},
+              )
+              assert created['sha'] == expected
+              report['fixtures'][str(chars)] = {
+                  'base64_chars': chars,
+                  'decoded_bytes': len(decoded),
+                  'git_blob_sha': expected,
+                  'base64_sha256': hashlib.sha256(content.encode()).hexdigest(),
+              }
+
+          out = 'mcp-payload-lab/outer-tool-limit/fixture-report-v1.json'
+          os.makedirs(os.path.dirname(out), exist_ok=True)
+          with open(out, 'w') as f:
+              json.dump(report, f, indent=2, sort_keys=True)
+              f.write('\n')
+          PY
+      - name: Commit report
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add mcp-payload-lab/outer-tool-limit/fixture-report-v1.json
+          git commit -m 'test: record outer-limit fixture SHAs v1'
+          git push origin HEAD:mcp-outer-tool-limit-lab
