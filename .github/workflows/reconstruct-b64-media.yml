@@ -1,0 +1,111 @@
+name: Reconstruct base64 media
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - mona-lisa-cat-cloud-counting-stars
+    paths:
+      - '.github/workflows/reconstruct-b64-media.yml'
+      - 'media/**/manifest.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reconstruct-b64-media-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  reconstruct:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct media from base64 chunks
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          import hashlib
+          import json
+          import sys
+
+          manifests = sorted(Path('media').glob('**/manifest.json'))
+          if not manifests:
+              print('No media manifest.json files found; nothing to reconstruct.')
+              sys.exit(0)
+
+          failures = []
+          for manifest_path in manifests:
+              d = manifest_path.parent
+              manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+              filename = manifest['source_filename']
+              chunk_chars = int(manifest['chunk_chars'])
+              expected_chunk_count = int(manifest['chunk_count'])
+              expected_base64_chars = int(manifest['base64_chars'])
+              expected_base64_sha = manifest['base64_sha256']
+              expected_binary_bytes = int(manifest['binary_bytes'])
+              expected_binary_sha = manifest['binary_sha256']
+
+              chunks = sorted(d.glob('chunk-*.b64'))
+              print(f'Checking {d}: {len(chunks)} chunks')
+              if len(chunks) != expected_chunk_count:
+                  failures.append(f'{d}: expected {expected_chunk_count} chunks, found {len(chunks)}')
+                  continue
+
+              pieces = []
+              for idx, chunk_path in enumerate(chunks, 1):
+                  text = chunk_path.read_text(encoding='ascii').strip()
+                  if idx < expected_chunk_count and len(text) != chunk_chars:
+                      failures.append(f'{chunk_path}: expected {chunk_chars} chars, found {len(text)}')
+                  if idx == expected_chunk_count and len(text) != int(manifest['last_chunk_chars']):
+                      failures.append(f'{chunk_path}: expected last chunk {manifest["last_chunk_chars"]} chars, found {len(text)}')
+                  pieces.append(text)
+
+              b64 = ''.join(pieces)
+              if len(b64) != expected_base64_chars:
+                  failures.append(f'{d}: expected base64_chars {expected_base64_chars}, found {len(b64)}')
+              actual_b64_sha = hashlib.sha256(b64.encode('ascii')).hexdigest()
+              if actual_b64_sha != expected_base64_sha:
+                  failures.append(f'{d}: base64 sha mismatch {actual_b64_sha} != {expected_base64_sha}')
+                  continue
+
+              try:
+                  raw = base64.b64decode(b64, validate=True)
+              except Exception as exc:
+                  failures.append(f'{d}: base64 decode failed: {exc}')
+                  continue
+
+              if len(raw) != expected_binary_bytes:
+                  failures.append(f'{d}: expected binary bytes {expected_binary_bytes}, found {len(raw)}')
+              actual_binary_sha = hashlib.sha256(raw).hexdigest()
+              if actual_binary_sha != expected_binary_sha:
+                  failures.append(f'{d}: binary sha mismatch {actual_binary_sha} != {expected_binary_sha}')
+                  continue
+
+              output_path = d / filename
+              output_path.write_bytes(raw)
+              print(f'Reconstructed {output_path} ({len(raw)} bytes, sha256={actual_binary_sha})')
+
+          if failures:
+              print('\nFAILURES:')
+              for failure in failures:
+                  print(f'- {failure}')
+              sys.exit(1)
+          PY
+
+      - name: Commit reconstructed media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 'media/**/*.jpg'
+          if git diff --cached --quiet; then
+            echo "No reconstructed media changes to commit."
+          else
+            git commit -m "build: reconstruct base64 media"
+            git push
+          fi
