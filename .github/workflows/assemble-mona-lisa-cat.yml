@@ -1,0 +1,122 @@
+name: Assemble Mona Lisa cat image
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - mona-lisa-cat-cloud-counting-stars
+    paths:
+      - .github/workflows/assemble-mona-lisa-cat.yml
+
+permissions:
+  contents: write
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: mona-lisa-cat-cloud-counting-stars
+          fetch-depth: 0
+
+      - name: Download canonical source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/mona
+          curl --fail --location --retry 3 \
+            'https://drive.usercontent.google.com/download?id=1zLUJ47QHqIJl3di4VHzHYJSy7K3mJvzb&export=download&confirm=t' \
+            --output /tmp/mona/source.jpg
+          test "$(stat -c%s /tmp/mona/source.jpg)" = '260702'
+          echo '4d61de6a7811240a9050fe784330bc8ef835b324cddda2e0f83cc14efde6f99c  /tmp/mona/source.jpg' | sha256sum --check --strict
+
+      - name: Rebuild canonical chunks and validate MCP prefix
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='media/mona-lisa-cat-cloud-counting-stars/256kb'
+          OUT="$ROOT/actions-completed"
+          mkdir -p "$OUT/chunks"
+
+          base64 -w 0 /tmp/mona/source.jpg > /tmp/mona/source.b64
+          test "$(wc -c < /tmp/mona/source.b64)" = '347604'
+
+          split -b 16384 -d -a 3 --additional-suffix=.b64 /tmp/mona/source.b64 /tmp/mona/chunk-
+          i=1
+          for f in /tmp/mona/chunk-*.b64; do
+            printf -v dst '%s/chunks/chunk-%03d.b64' "$OUT" "$i"
+            cp "$f" "$dst"
+            i=$((i + 1))
+          done
+          test "$((i - 1))" = '22'
+
+          for n in 001 002 003 004 005 006; do
+            cmp --silent "$ROOT/chunk-$n.b64" "$OUT/chunks/chunk-$n.b64"
+          done
+
+          cat \
+            "$ROOT/resume-v2/chunk-007-part-01.b64" \
+            "$ROOT/resume-v2/chunk-007-part-02.b64" \
+            "$ROOT/resume-v2/chunk-007-part-03.b64" \
+            "$ROOT/resume-v2/chunk-007-part-04.b64" \
+            > /tmp/mona/chunk-007-mcp.b64
+          cmp --silent /tmp/mona/chunk-007-mcp.b64 "$OUT/chunks/chunk-007.b64"
+
+          cat \
+            "$ROOT/resume-v2/chunk-008-part-01.b64" \
+            "$ROOT/resume-v2/chunk-008-part-02.b64" \
+            "$ROOT/resume-v2/chunk-008-part-03.b64" \
+            "$ROOT/resume-v2/chunk-008-part-04.b64" \
+            > /tmp/mona/chunk-008-mcp.b64
+          cmp --silent /tmp/mona/chunk-008-mcp.b64 "$OUT/chunks/chunk-008.b64"
+
+      - name: Assemble and verify final JPEG
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='media/mona-lisa-cat-cloud-counting-stars/256kb'
+          OUT="$ROOT/actions-completed"
+          cat "$OUT"/chunks/chunk-*.b64 | base64 --decode > "$OUT/mona-lisa-cat-cloud-counting-stars-256kb.jpg"
+          test "$(stat -c%s "$OUT/mona-lisa-cat-cloud-counting-stars-256kb.jpg")" = '260702'
+          echo "4d61de6a7811240a9050fe784330bc8ef835b324cddda2e0f83cc14efde6f99c  $OUT/mona-lisa-cat-cloud-counting-stars-256kb.jpg" | sha256sum --check --strict
+
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+
+          root = Path('media/mona-lisa-cat-cloud-counting-stars/256kb/actions-completed')
+          chunks = sorted((root / 'chunks').glob('chunk-*.b64'))
+          manifest = {
+              'source_filename': 'mona-lisa-cat-cloud-counting-stars-256kb.jpg',
+              'source_bytes': 260702,
+              'source_base64_chars': 347604,
+              'source_sha256': '4d61de6a7811240a9050fe784330bc8ef835b324cddda2e0f83cc14efde6f99c',
+              'chunk_chars': 16384,
+              'chunk_count': len(chunks),
+              'mcp_verified_prefix_chunks': list(range(1, 9)),
+              'actions_generated_tail_chunks': list(range(9, 23)),
+              'chunks': [
+                  {
+                      'name': p.name,
+                      'chars': len(p.read_text()),
+                      'sha256': hashlib.sha256(p.read_bytes()).hexdigest(),
+                  }
+                  for p in chunks
+              ],
+              'assembled_file': str(root / 'mona-lisa-cat-cloud-counting-stars-256kb.jpg'),
+              'assembled_sha256': hashlib.sha256((root / 'mona-lisa-cat-cloud-counting-stars-256kb.jpg').read_bytes()).hexdigest(),
+          }
+          (root / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+          PY
+
+      - name: Commit completed chunks and image
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add media/mona-lisa-cat-cloud-counting-stars/256kb/actions-completed
+          git diff --cached --quiet && exit 0
+          git commit -m 'media: assemble verified Mona Lisa cat image'
+          git push origin HEAD:mona-lisa-cat-cloud-counting-stars
