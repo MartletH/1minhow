@@ -7,6 +7,9 @@ on:
       - mona-lisa-cat-cloud-counting-stars
     paths:
       - .github/workflows/assemble-mona-lisa-cat.yml
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
