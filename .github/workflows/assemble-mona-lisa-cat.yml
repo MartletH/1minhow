@@ -123,3 +123,5 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m 'media: assemble verified Mona Lisa cat image'
           git push origin HEAD:mona-lisa-cat-cloud-counting-stars
+
+# trigger: 2026-07-15-chatgpt-mcp-resume
