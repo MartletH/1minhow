@@ -28,7 +28,7 @@
 - `1Min` color: `#DCA54A`
 - `How` color: `#0F172A`
 - Background: transparent
-- Important portability note: because the SVG contains live text, rendering depends on the viewer having a compatible `Noto Sans SC` font. A reviewed outlined-path archival variant should be created later without replacing this original evidence file.
+- Original evidence file remains the live-text SVG. A separate outlined-path archival SVG now exists for portable, font-independent rendering and must not replace the historical original.
 
 ## Public-use evidence
 
@@ -41,10 +41,10 @@
 
 ## Canonical files
 
-| Role | Repository path | Format | Dimensions | SHA-256 | Review status |
+| Role | Repository path | Format | Dimensions | Integrity | Review status |
 |---|---|---|---:|---|---|
-| WordPress original / primary vector | `assets/svg/1minhow-logo-current-v0.1.svg` | SVG with live text | 125 × 25 | `ff4c942e89a65c7134e6d9a83249380a74351d46bf62e544cd5725c5eb662393` | frozen from WordPress |
-| Outlined archival vector | pending | SVG paths | scalable | pending | recommended later |
+| WordPress original / primary vector | `assets/svg/1minhow-logo-current-v0.1.svg` | SVG with live text | 125 × 25 | SHA-256 `ff4c942e89a65c7134e6d9a83249380a74351d46bf62e544cd5725c5eb662393` | frozen from WordPress |
+| Outlined archival vector | `assets/svg/1minhow-logo-current-v0.1-outlined.svg` | SVG with two paths, no `<text>` | 125 × 25 | Git blob `ce83803b1b08efedde4a9ed7dcf297c45dde2099`; SHA-256 to be recorded after byte-level export verification | generated and structurally verified |
 | Primary raster | pending | PNG | pending | pending | optional after visual review |
 | Web export | pending | WebP | pending | pending | optional after visual review |
 
@@ -65,18 +65,21 @@
 ## Repository freeze
 
 - First freeze commit SHA: `bcf15fcc2cf22973de39287a3e38a57787454d81`
+- Outlined archival commit SHA: `18c23fe57835afe6c455c7a2dbb981ddca0389c0`
 - Freeze date: `2026-07-23`
 - Evidence source: WordPress theme mod `custom_logo=3604`, media REST record, and rendered SVG response
 - Public URL verified: yes
-- Exact byte length verified: `1142`
-- SHA-256 verified: yes
+- Exact original byte length verified: `1142`
+- Original SHA-256 verified: yes
+- Outlined structure verified: two `<path>` elements and no `<text>` element
 
 ## Remaining evidence work
 
 - Capture dated desktop/mobile homepage and Blog screenshots.
 - Identify the original editable design source, if it exists.
 - Record the exact Noto Sans SC version and license source.
-- Create an outlined-path archival copy and visually compare it with the live-text original.
+- Perform a visual pixel comparison between the live-text and outlined variants.
+- Record the exact SHA-256 of the committed outlined file after byte-level verification.
 - Perform dated trademark/name screening separately.
 
 ## Legal boundary
