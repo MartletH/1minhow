@@ -19,6 +19,29 @@ The system is designed for small distributed accents similar to Google Doodle us
 | Millet / 拾穗鼠 | Jean-François Millet, *The Gleaners* | seed-gathering field mouse | diligent, frugal, generous, resource-aware | wheat backpack, gathering pose, soil-and-grain palette |
 | Luna Leo / 月眠狮 | Henri Rousseau, *The Sleeping Gypsy* | moonlit night guardian | outwardly brave, inwardly tender, protective | moonlit mane, low watch pose, deep-blue dune pattern |
 
+## Fixed appearance memory points
+
+These are the minimum stable traits for v0.1. Clothing and seasonal accessories may vary, but the listed silhouette, face, color, and painting-gene markers must remain recognizable.
+
+| Character | Fixed silhouette and proportions | Fixed face / anatomy | Fixed color and pattern | Must-not-change memory points |
+|---|---|---|---|---|
+| Mona Meow / 萌娜丽猫 | compact seated cat; broad triangular torso; long tail curling around paws | almond eyes; small rounded muzzle; slight asymmetric smile; medium upright ears | warm umber and cream fur; muted landscape-green shawl pattern | folded-paw pose, Mona-Lisa-like smile, calm forward or 3/4 gaze, tail forming a protective curve |
+| Vincent Owl / 星夜鸮 | round owl body; short legs; broad wing arc; oversized head | very large circular eyes; one brow ridge slightly higher; short hooked beak | deep blue, indigo and gold; spiral eye rings; star-speckled chest | spiral eyes, star-feather chest, dramatic head turn, wing tips that echo swirling night-sky curves |
+| Pearl Bun / 珍珠耳兔 | slim upright rabbit; long ears with unequal resting angles; narrow shoulders | soft oval face; small triangular nose; alert side glance | cream fur; restrained blue-and-yellow cloth accents; single dew-drop pearl | one visible pearl, over-shoulder turn, one ear leading and one listening backward, elegant restrained posture |
+| Sunny Vulp / 向阳狐 | light athletic fox; long legs; large fan-shaped tail | narrow muzzle; bright open eyes; petal-like inner ear shape | orange-gold coat; deep sunflower-brown accents; pale cream chest | sunflower tail tip, petal ear detail, forward-leaning light-seeking posture, warm open expression |
+| Monet Frog / 睡莲蛙 | low rounded frog; wide seated base; short limbs; flat calm silhouette | large half-lidded eyes; broad mouth; slightly dry expression | soft green, blue-green and violet reflection spots; pale underside | lily-pad cap or back leaf, reflected-light spots, still seated pose, half-lidded grounded expression |
+| Hoku / 浪浪鱼 | crescent-bodied fish; high dorsal sweep; wave-like pectoral fins | compact face; bright round eye; pointed but friendly snout | indigo, white and foam-blue; wave crest pattern along back | curling wave fins, clean leaping arc, blue-white crest pattern, body always reading as one flowing stroke |
+| Millet / 拾穗鼠 | small field mouse; pear-shaped body; long balancing tail; forward gathering stance | round ears; short muzzle; observant downturned eyes | soil brown, wheat gold and muted green; grain-textured backpack | wheat backpack, grasping forepaws, practical grounded stance, resource-carrying silhouette |
+| Luna Leo / 月眠狮 | low long-bodied lion; large crescent mane; heavy resting paws | gentle broad muzzle; small sleepy eyes; soft rounded ears | deep blue, moon-silver and muted sand; dune-like mane bands | crescent moonlit mane, low guardian posture, sleepy-but-alert eyes, protective space beneath or within the mane |
+
+## Allowed variation boundary
+
+- Clothing, scarves, small bags, seasonal leaves, flowers and weather accessories may vary.
+- Core body proportions, face shape, ear/tail/wing structure, primary palette and signature painting-gene marker do not vary.
+- A new outfit cannot cover the character's main recognition point.
+- A generated image that loses two or more fixed memory points is not the same production character and must not enter the canonical asset set.
+- Any major redesign creates a new character asset version rather than silently overwriting v0.1.
+
 ## Required expression and action set
 
 Each character must receive at least these eight distinct states. Personality must be visible through body language, not only facial swaps.
@@ -56,3 +79,4 @@ Supporting elements do not receive equal IP prominence in v0.1: expressive stars
 - Export transparent SVG where appropriate and transparent PNG/WebP for textured art.
 - Maintain one manifest entry per asset with character, state, source painting, prompt/source file, dimensions, license note, and SHA-256.
 - Do not use protected modern artworks as source genes.
+- Canonical visual sheets and approved exports must be committed with immutable hashes before public use.
