@@ -1,0 +1,3 @@
+# Populate only after canonical logo files are collected and reviewed.
+# Format: <lowercase SHA-256><two spaces><repository-relative path>
+# Do not add guessed hashes or hashes of temporary screenshots.
